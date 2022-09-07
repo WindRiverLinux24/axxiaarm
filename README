@@ -115,7 +115,7 @@ the images u-boot.img and u-boot-spl.bin:
      $ . ./oe-init-build-env
      $ cat << _EOF >> conf/local.conf
 MACHINE_FEATURES += " bootloader-lsi"
-PNWHITELIST_wr-axxiaarm += 'u-boot-lsi'
+PNWHITELIST:wr-axxiaarm += 'u-boot-lsi'
 _EOF
      $ bitbake u-boot-lsi
 
@@ -181,7 +181,7 @@ the images u-boot.img and u-boot-spl.img:
      $ . ./oe-init-build-env
      $ cat << _EOF >> conf/local.conf
 MACHINE_FEATURES += " bootloader-axxia"
-PNWHITELIST_wr-axxiaarm += 'u-boot-axxia'
+PNWHITELIST:wr-axxiaarm += 'u-boot-axxia'
 _EOF
      $ bitbake u-boot-axxia
 

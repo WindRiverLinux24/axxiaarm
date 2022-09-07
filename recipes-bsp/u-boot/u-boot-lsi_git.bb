@@ -9,12 +9,12 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=1707d6db1d42237583f50183a5651ecb"
 # This revision corresponds to the tag "lsi_axxia_u-boot_5.8.1.90"
 SRCREV = "fca362a4628b8383f83660b7b7651f3d405161af"
 
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
 COMPATIBLE_MACHINE = "^axxiaarm$"
 SRC_URI = "git://github.com/axxia/axxia_u-boot.git;branch=lsi-v2013.01.01"
 
-SRC_URI_append = " file://0001-lsi-axm55xx-fix-the-u-boot-compile-fail.patch \
+SRC_URI:append = " file://0001-lsi-axm55xx-fix-the-u-boot-compile-fail.patch \
 		   file://0001-axxia-fix-compile-error.patch \
 		   file://0008-compiler-.h-sync-include-linux-compiler-.h-with-Linu.patch \
 		   file://0009-config.mk-add-Wno-address-of-packed-member-to-CFLAGS.patch \

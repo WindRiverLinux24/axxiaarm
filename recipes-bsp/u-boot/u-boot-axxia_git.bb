@@ -9,20 +9,20 @@ LIC_FILES_CHKSUM = "file://README;beginline=1;endline=6;md5=157ab8408beab40cd8ce
 # This revision corresponds to the tag "u-boot_v2015.10_axxia_1.96"
 SRCREV = "b939d8c53af5f137ba095fe1666b1064dc948613"
 
-UBOOT_MACHINE_axxiaarm64 = "axm5600_defconfig"
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+UBOOT_MACHINE:axxiaarm64 = "axm5600_defconfig"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
 COMPATIBLE_MACHINE = "^axxiaarm64$"
 SRC_URI = "git://github.com/axxia/axxia_u-boot.git;branch=axxia-dev"
 
-SRC_URI_append = " file://0005-lsi-Add-the-Ability-to-Build-with-GCC6.patch \
+SRC_URI:append = " file://0005-lsi-Add-the-Ability-to-Build-with-GCC6.patch \
 			   file://0001-axm56xx-fix-the-u-boot-compile-fail.patch \
 			   file://0001-ARMv8-add-GOT-sections-to-the-list-of-sections-copie.patch \
 			   file://0001-axm5600-correct-MKIMAGEFLAGS-of-u-boot.img-and-u-boo.patch \
 			   file://0001-add-fat-support-for-axxiaarm64.patch \
 			   file://0001-fs-ext4-cache-extent-data.patch \
 		 "
-DEPENDS_append = " atf-axxia"
+DEPENDS:append = " atf-axxia"
 S = "${WORKDIR}/git"
 B = "${WORKDIR}/build"
 UBOOT_MAKE_TARGET ?= "all"

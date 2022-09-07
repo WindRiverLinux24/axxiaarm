@@ -19,7 +19,7 @@ ATF_BASE_NAME ?= "${PN}-${PKGE}-${PKGV}-${PKGR}-${DATETIME}"
 ATF_BASE_NAME[vardepsexclude] = "DATETIME"
 
 COMPATIBLE_MACHINE = "^axxiaarm64$"
-PLATFORM_axxiaarm64 = "axxia"
+PLATFORM:axxiaarm64 = "axxia"
 # requires CROSS_COMPILE set by hand as there is no configure script
 export CROSS_COMPILE="${TARGET_PREFIX}"
 OUTPUT_DIR = "${B}/${PLATFORM}/debug"
