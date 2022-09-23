@@ -7,7 +7,7 @@ LICENSE = "GPLv2+"
 LIC_FILES_CHKSUM = "file://COPYING;md5=1707d6db1d42237583f50183a5651ecb"
 
 # This revision corresponds to the tag "lsi_axxia_u-boot_5.8.1.90"
-SRCREV = "fca362a4628b8383f83660b7b7651f3d405161af"
+SRCREV = "1523c5f65c5e9a78658f3de446c6287cc66b7677"
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
@@ -15,27 +15,15 @@ COMPATIBLE_MACHINE = "^axxiaarm$"
 SRC_URI = "git://github.com/axxia/axxia_u-boot.git;branch=lsi-v2013.01.01"
 
 SRC_URI:append = " file://0001-lsi-axm55xx-fix-the-u-boot-compile-fail.patch \
-		   file://0001-axxia-fix-compile-error.patch \
 		   file://0008-compiler-.h-sync-include-linux-compiler-.h-with-Linu.patch \
 		   file://0009-config.mk-add-Wno-address-of-packed-member-to-CFLAGS.patch \
-		   file://0011-axxia-lowlevel-ensure-CVE-2017-5715-cover-all-cores.patch \
-		   file://0001-improve-format-of-filesize-for-fatload.patch \
-		   file://0001-cmd_test-implement-e-test-for-file-existence.patch \
-		   file://0001-enable-fat-cmd-for-axxia-55xx.patch \
-		   file://0001-Increate-CONFIG_SYS_MAXARGS-to-workaround-setenv-iss.patch \
-		   file://0001-enable-shell-for-axxia-55xx.patch \
-		   file://0001-fix-usb-write-failed.patch \
-		   file://0001-fix-USB2.0-device-timeout-issue.patch \
-		   file://0001-ext4fs-use-EXT2_BLOCK_SIZE-instead-of-fs-blksz.patch \
-		   file://0001-ext4fs-fix-invalid-extent-block-error.patch \
-		   file://0001-fs-ext4-cache-extent-data.patch \
 		 "
 
 S = "${WORKDIR}/git"
 B = "${WORKDIR}/build"
 UBOOT_MAKE_TARGET ?= "all"
 
-EXTRA_OEMAKE += "AXXIA_VERSION=lsi_axxia_u-boot_5.8.1.90"
+EXTRA_OEMAKE += "AXXIA_VERSION=lsi_axxia_u-boot_5.8.1.95"
 PV = "2013.01.01+git${SRCREV}"
 
 # Some versions of u-boot use .bin and others use .img.  By default use .bin
