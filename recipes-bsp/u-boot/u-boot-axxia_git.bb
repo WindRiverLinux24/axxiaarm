@@ -7,7 +7,7 @@ LICENSE = "GPLv2+"
 LIC_FILES_CHKSUM = "file://README;beginline=1;endline=6;md5=157ab8408beab40cd8ce1dc69f702a6c"
 
 # This revision corresponds to the tag "u-boot_v2015.10_axxia_1.96"
-SRCREV = "b939d8c53af5f137ba095fe1666b1064dc948613"
+SRCREV = "a0d6f2ff4ce1bc50925a6f02bd9fab3099b96f84"
 
 UBOOT_MACHINE:axxiaarm64 = "axm5600_defconfig"
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
@@ -19,8 +19,6 @@ SRC_URI:append = " file://0005-lsi-Add-the-Ability-to-Build-with-GCC6.patch \
 			   file://0001-axm56xx-fix-the-u-boot-compile-fail.patch \
 			   file://0001-ARMv8-add-GOT-sections-to-the-list-of-sections-copie.patch \
 			   file://0001-axm5600-correct-MKIMAGEFLAGS-of-u-boot.img-and-u-boo.patch \
-			   file://0001-add-fat-support-for-axxiaarm64.patch \
-			   file://0001-fs-ext4-cache-extent-data.patch \
 		 "
 DEPENDS:append = " atf-axxia"
 S = "${WORKDIR}/git"
