@@ -3,7 +3,7 @@
 #
 require recipes-bsp/u-boot/u-boot.inc
 
-LICENSE = "GPLv2+"
+LICENSE = "GPL-2.0-or-later"
 LIC_FILES_CHKSUM = "file://README;beginline=1;endline=6;md5=157ab8408beab40cd8ce1dc69f702a6c"
 
 # This revision corresponds to the tag "u-boot_v2015.10_axxia_1.96"

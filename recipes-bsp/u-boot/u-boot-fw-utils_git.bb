@@ -1,5 +1,5 @@
 DESCRIPTION = "U-boot bootloader fw_printenv/setenv utils"
-LICENSE = "GPLv2+"
+LICENSE = "GPL-2.0-or-later"
 LIC_FILES_CHKSUM:axxiaarm = "file://COPYING;md5=1707d6db1d42237583f50183a5651ecb"
 LIC_FILES_CHKSUM:axxiaarm64 = "file://README;beginline=1;endline=6;md5=157ab8408beab40cd8ce1dc69f702a6c"
 SECTION = "bootloader"
