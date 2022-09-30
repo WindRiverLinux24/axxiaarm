@@ -13,7 +13,7 @@ S = "${WORKDIR}/git"
 B = "${WORKDIR}/git/build"
 
 BRANCH = "axxia-dev"
-SRC_URI = "git://github.com/axxia/axxia_atf.git;branch=${BRANCH}"
+SRC_URI = "git://github.com/axxia/axxia_atf.git;protocol=https;branch=${BRANCH}"
 
 ATF_BASE_NAME ?= "${PN}-${PKGE}-${PKGV}-${PKGR}-${DATETIME}"
 ATF_BASE_NAME[vardepsexclude] = "DATETIME"

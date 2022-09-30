@@ -13,7 +13,7 @@ UBOOT_MACHINE:axxiaarm64 = "axm5600_defconfig"
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
 COMPATIBLE_MACHINE = "^axxiaarm64$"
-SRC_URI = "git://github.com/axxia/axxia_u-boot.git;branch=axxia-dev"
+SRC_URI = "git://github.com/axxia/axxia_u-boot.git;protocol=https;branch=axxia-dev"
 
 SRC_URI:append = " file://0005-lsi-Add-the-Ability-to-Build-with-GCC6.patch \
 			   file://0001-axm56xx-fix-the-u-boot-compile-fail.patch \

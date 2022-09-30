@@ -11,8 +11,8 @@ SRCREV:axxiaarm64 = "a0d6f2ff4ce1bc50925a6f02bd9fab3099b96f84"
 
 PV = "2013.01.01+git${SRCREV}"
 UBOOT_MACHINE:axxiaarm64 = "axm5600_defconfig"
-SRC_URI:axxiaarm = "git://github.com/lsigithub/lsi_axxia_uboot_public.git;nobranch=1"
-SRC_URI:axxiaarm64 = "git://github.com/axxia/axxia_u-boot.git;branch=axxia-dev"
+SRC_URI:axxiaarm = "git://github.com/lsigithub/lsi_axxia_uboot_public.git;protocol=https;nobranch=1"
+SRC_URI:axxiaarm64 = "git://github.com/axxia/axxia_u-boot.git;protocol=https;branch=axxia-dev"
 
 SRC_URI:append:axxiaarm = " file://0001-fw_env-fix-compile-error-of-fw_env.patch\
                 "

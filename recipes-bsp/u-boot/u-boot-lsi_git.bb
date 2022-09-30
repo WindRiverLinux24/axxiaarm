@@ -12,7 +12,7 @@ SRCREV = "1523c5f65c5e9a78658f3de446c6287cc66b7677"
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
 COMPATIBLE_MACHINE = "^axxiaarm$"
-SRC_URI = "git://github.com/axxia/axxia_u-boot.git;branch=lsi-v2013.01.01"
+SRC_URI = "git://github.com/axxia/axxia_u-boot.git;protocol=https;branch=lsi-v2013.01.01"
 
 SRC_URI:append = " file://0001-lsi-axm55xx-fix-the-u-boot-compile-fail.patch \
 		   file://0008-compiler-.h-sync-include-linux-compiler-.h-with-Linu.patch \
