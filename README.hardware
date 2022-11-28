@@ -112,3 +112,10 @@ different environment it may run into unknown issues.
 	BootLoader:		U-Boot
 	BootLoader Version: 	u-boot_v2015.10_axxia_1.96
 	ATF Version:		atf_84091c4_axxia_1.43
+
+5.3 Known Issues
+----------------
+1) when boot with Network File System(NFS), high frequent write operations on
+   manually mounted BTRFS or XFS file system space will cause the NFS hang
+   with "nfs: server 192.168.10.20 not responding, still trying", this issue
+   is still under investigation.
