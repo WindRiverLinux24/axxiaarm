@@ -14,6 +14,12 @@ B = "${WORKDIR}/git/build"
 
 BRANCH = "axxia-dev"
 SRC_URI = "git://github.com/axxia/axxia_atf.git;protocol=https;branch=${BRANCH}"
+FILESEXTRAPATHS:prepend:axxiaarm64 := "${THISDIR}/files:"
+SRC_URI:append:axxiaarm64 = " \
+           file://0001-fix-auth-forbid-junk-after-extensions.patch \
+           file://0002-fix-auth-require-at-least-one-extension-to-be-presen.patch \
+           file://0003-fix-auth-properly-validate-X.509-extensions.patch \
+"
 
 ATF_BASE_NAME ?= "${PN}-${PKGE}-${PKGV}-${PKGR}-${DATETIME}"
 ATF_BASE_NAME[vardepsexclude] = "DATETIME"

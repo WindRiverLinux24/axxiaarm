@@ -1,0 +1,77 @@
+From 93a0d36c6606c8600671a1c4b59678e0a2068a92 Mon Sep 17 00:00:00 2001
+From: Demi Marie Obenour <demiobenour@gmail.com>
+Date: Thu, 8 Dec 2022 15:23:58 -0500
+Subject: [PATCH 2/3] fix(auth): require at least one extension to be present
+
+X.509 and RFC5280 allow omitting the extensions entirely, but require
+that if the extensions field is present at all, it must contain at least
+one certificate.  TF-A already requires the extensions to be present,
+but allows them to be empty.  However, a certificate with an empty
+extensions field will always fail later on, as the extensions contain
+the information needed to validate the next stage in the boot chain.
+Therefore, it is simpler to require the extension field to be present
+and contain at least one extension.  Also add a comment explaining why
+the extensions field is required, even though it is OPTIONAL in the
+ASN.1 syntax.
+
+Upstream-Status: Pending
+
+Change-Id: Ie26eed8a7924bf50937a6b27ccdf7cc9a390588d
+Signed-off-by: Demi Marie Obenour <demiobenour@gmail.com>
+Signed-off-by: Zhantao Tang <zhantao.tang@windriver.com>
+Signed-off-by: Liwei Song <liwei.song@windriver.com>
+---
+ drivers/auth/mbedtls/mbedtls_x509_parser.c | 22 ++++++++++++++++++----
+ 1 file changed, 18 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/auth/mbedtls/mbedtls_x509_parser.c b/drivers/auth/mbedtls/mbedtls_x509_parser.c
+index 8183b1191798..b8a3c247a54a 100644
+--- a/drivers/auth/mbedtls/mbedtls_x509_parser.c
++++ b/drivers/auth/mbedtls/mbedtls_x509_parser.c
+@@ -286,7 +286,18 @@ static int cert_parse(void *img, unsigned int img_len)
+ 
+ 	/*
+ 	 * extensions      [3]  EXPLICIT Extensions OPTIONAL
+-	 * -- must use all remaining bytes in TBSCertificate
++	 * }
++	 *
++	 * X.509 and RFC5280 allow omitting the extensions entirely.
++	 * However, in TF-A, a certificate with no extensions would
++	 * always fail later on, as the extensions contain the
++	 * information needed to authenticate the next stage in the
++	 * boot chain.  Furthermore, get_ext() assumes that the
++	 * extensions have been parsed into v3_ext, and allowing
++	 * there to be no extensions would pointlessly complicate
++	 * the code.  Therefore, just reject certificates without
++	 * extensions.  This is also why version 1 and 2 certificates
++	 * are rejected above.
+ 	 */
+ 	ret = mbedtls_asn1_get_tag(&p, end, &len,
+ 				   MBEDTLS_ASN1_CONTEXT_SPECIFIC |
+@@ -308,9 +319,12 @@ static int cert_parse(void *img, unsigned int img_len)
+ 	v3_ext.len = end - v3_ext.p;
+ 
+ 	/*
+-	 * Check extensions integrity
++	 * Check extensions integrity.  At least one extension is
++	 * required: the ASN.1 specifies a minimum size of 1, and at
++	 * least one extension is needed to authenticate the next stage
++	 * in the boot chain.
+ 	 */
+-	while (p < end) {
++	do {
+ 		ret = mbedtls_asn1_get_tag(&p, end, &len,
+ 					   MBEDTLS_ASN1_CONSTRUCTED |
+ 					   MBEDTLS_ASN1_SEQUENCE);
+@@ -338,7 +352,7 @@ static int cert_parse(void *img, unsigned int img_len)
+ 			return IMG_PARSER_ERR_FORMAT;
+ 		}
+ 		p += len;
+-	}
++	} while (p < end);
+ 
+ 	if (p != end) {
+ 		return IMG_PARSER_ERR_FORMAT;
+-- 
+2.32.0
+

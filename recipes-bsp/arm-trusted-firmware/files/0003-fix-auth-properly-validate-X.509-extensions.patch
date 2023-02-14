@@ -1,0 +1,88 @@
+From ed8cf9574bde4e4ec43ad8b394fbd840be27e762 Mon Sep 17 00:00:00 2001
+From: Demi Marie Obenour <demiobenour@gmail.com>
+Date: Fri, 9 Dec 2022 17:19:08 -0500
+Subject: [PATCH 3/3] fix(auth): properly validate X.509 extensions
+
+get_ext() does not check the return value of the various mbedtls_*
+functions, as cert_parse() is assumed to have guaranteed that they will
+always succeed.  However, it passes the end of an extension as the end
+pointer to these functions, whereas cert_parse() passes the end of the
+TBSCertificate.  Furthermore, cert_parse() does *not* check that the
+contents of the extension have the same length as the extension itself.
+Before fd37982a19a4a291 ("fix(auth): forbid junk after extensions"),
+cert_parse() also does not check that the extension block extends to the
+end of the TBSCertificate.
+
+This is a problem, as mbedtls_asn1_get_tag() leaves *p and *len
+undefined on failure.  In practice, this results in get_ext() continuing
+to parse at different offsets than were used (and validated) by
+cert_parse(), which means that the in-bounds guarantee provided by
+cert_parse() no longer holds.
+
+This patch fixes the remaining flaw by enforcing that the contents of an
+extension are the same length as the extension itself.
+
+Upstream-Status: Pending
+
+Change-Id: Id4570f911402e34d5d6c799ae01a01f184c68d7c
+Signed-off-by: Demi Marie Obenour <demiobenour@gmail.com>
+Signed-off-by: Sandrine Bailleux <sandrine.bailleux@arm.com>
+Signed-off-by: Zhantao Tang <zhantao.tang@windriver.com>
+Signed-off-by: Liwei Song <liwei.song@windriver.com>
+---
+ drivers/auth/mbedtls/mbedtls_x509_parser.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/auth/mbedtls/mbedtls_x509_parser.c b/drivers/auth/mbedtls/mbedtls_x509_parser.c
+index b8a3c247a54a..45a94ee2ecd2 100644
+--- a/drivers/auth/mbedtls/mbedtls_x509_parser.c
++++ b/drivers/auth/mbedtls/mbedtls_x509_parser.c
+@@ -325,33 +325,39 @@ static int cert_parse(void *img, unsigned int img_len)
+ 	 * in the boot chain.
+ 	 */
+ 	do {
++		unsigned char *end_ext_data;
++
+ 		ret = mbedtls_asn1_get_tag(&p, end, &len,
+ 					   MBEDTLS_ASN1_CONSTRUCTED |
+ 					   MBEDTLS_ASN1_SEQUENCE);
+ 		if (ret != 0) {
+ 			return IMG_PARSER_ERR_FORMAT;
+ 		}
++		end_ext_data = p + len;
+ 
+ 		/* Get extension ID */
+-		ret = mbedtls_asn1_get_tag(&p, end, &len, MBEDTLS_ASN1_OID);
++		ret = mbedtls_asn1_get_tag(&p, end_ext_data, &len, MBEDTLS_ASN1_OID);
+ 		if (ret != 0) {
+ 			return IMG_PARSER_ERR_FORMAT;
+ 		}
+ 		p += len;
+ 
+ 		/* Get optional critical */
+-		ret = mbedtls_asn1_get_bool(&p, end, &is_critical);
++		ret = mbedtls_asn1_get_bool(&p, end_ext_data, &is_critical);
+ 		if ((ret != 0) && (ret != MBEDTLS_ERR_ASN1_UNEXPECTED_TAG)) {
+ 			return IMG_PARSER_ERR_FORMAT;
+ 		}
+ 
+-		/* Data should be octet string type */
+-		ret = mbedtls_asn1_get_tag(&p, end, &len,
++		/*
++		 * Data should be octet string type and must use all bytes in
++		 * the Extension.
++		 */
++		ret = mbedtls_asn1_get_tag(&p, end_ext_data, &len,
+ 					   MBEDTLS_ASN1_OCTET_STRING);
+-		if (ret != 0) {
++		if ((ret != 0) || ((p + len) != end_ext_data)) {
+ 			return IMG_PARSER_ERR_FORMAT;
+ 		}
+-		p += len;
++		p = end_ext_data;
+ 	} while (p < end);
+ 
+ 	if (p != end) {
+-- 
+2.32.0
+
