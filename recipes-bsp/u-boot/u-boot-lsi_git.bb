@@ -17,6 +17,7 @@ SRC_URI = "git://github.com/axxia/axxia_u-boot.git;protocol=https;branch=lsi-v20
 SRC_URI:append = " file://0001-lsi-axm55xx-fix-the-u-boot-compile-fail.patch \
 		   file://0008-compiler-.h-sync-include-linux-compiler-.h-with-Linu.patch \
 		   file://0009-config.mk-add-Wno-address-of-packed-member-to-CFLAGS.patch \
+		   file://0001-fs-fat-Fix-GCC-12-Compiler-Warning.patch \
 		 "
 
 S = "${WORKDIR}/git"

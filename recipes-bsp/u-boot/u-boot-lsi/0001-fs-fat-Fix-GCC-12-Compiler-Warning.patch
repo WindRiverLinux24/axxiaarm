@@ -1,0 +1,32 @@
+From 624b4b9a0ffcf4e602c01e371e71255481883b81 Mon Sep 17 00:00:00 2001
+From: John Jacques <john.jacques@intel.com>
+Date: Mon, 17 Apr 2023 09:46:31 -0500
+Subject: [PATCH] fs/fat: Fix GCC 12 Compiler Warning
+
+GCC 12 complains that dentptr is a "dangling pointer" at line 1225.  To
+avoid this, make dentptr static.
+
+Upstream-Status: Backport [https://github.com/axxia/axxia_u-boot/commit/edd4cb570cd5892fc6da06498adf718e20301359]
+
+Signed-off-by: John Jacques <john.jacques@intel.com>
+Signed-off-by: Liwei Song <liwei.song@windriver.com>
+---
+ fs/fat/fat.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/fat/fat.c b/fs/fat/fat.c
+index a73ba15d8ba5..70ef11c15ed1 100644
+--- a/fs/fat/fat.c
++++ b/fs/fat/fat.c
+@@ -827,7 +827,7 @@ do_fat_read_at(const char *filename, unsigned long pos, void *buffer,
+ 	volume_info volinfo;
+ 	fsdata datablock;
+ 	fsdata *mydata = &datablock;
+-	dir_entry *dentptr = NULL;
++	static dir_entry *dentptr = NULL;
+ 	__u16 prevcksum = 0xffff;
+ 	char *subname = "";
+ 	__u32 cursect;
+-- 
+2.35.5
+
