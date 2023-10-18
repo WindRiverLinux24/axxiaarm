@@ -6,8 +6,8 @@ require recipes-bsp/u-boot/u-boot.inc
 LICENSE = "GPL-2.0-or-later"
 LIC_FILES_CHKSUM = "file://README;beginline=1;endline=6;md5=157ab8408beab40cd8ce1dc69f702a6c"
 
-# This revision corresponds to the tag "u-boot_v2015.10_axxia_1.96"
-SRCREV = "a0d6f2ff4ce1bc50925a6f02bd9fab3099b96f84"
+# This revision corresponds to the tag "u-boot_v2015.10_axxia_1.99"
+SRCREV = "1c355f05d6f5c267bfb5c4c98df4c1f4b0cabc24"
 
 UBOOT_MACHINE:axxiaarm64 = "axm5600_defconfig"
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
@@ -25,7 +25,7 @@ S = "${WORKDIR}/git"
 B = "${WORKDIR}/build"
 UBOOT_MAKE_TARGET ?= "all"
 
-EXTRA_OEMAKE += "AXXIA_VERSION=u-boot_v2015.10_axxia_1.96 AXXIA_ATF_VERSION=atf_84091c4_axxia_1.43"
+EXTRA_OEMAKE += "AXXIA_VERSION=u-boot_v2015.10_axxia_1.99 AXXIA_ATF_VERSION=atf_84091c4_axxia_1.43"
 PV = "2013.01.01+git${SRCREV}"
 
 # Some versions of u-boot use .bin and others use .img.  By default use .bin

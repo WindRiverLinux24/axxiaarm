@@ -7,7 +7,7 @@ DEPENDS = "mtd-utils"
 
 # This revision corresponds to the tag "lsi_axxia_u-boot_5.8.1.90"
 SRCREV:axxiaarm = "fca362a4628b8383f83660b7b7651f3d405161af"
-SRCREV:axxiaarm64 = "a0d6f2ff4ce1bc50925a6f02bd9fab3099b96f84"
+SRCREV:axxiaarm64 = "1c355f05d6f5c267bfb5c4c98df4c1f4b0cabc24"
 
 PV = "2013.01.01+git${SRCREV}"
 UBOOT_MACHINE:axxiaarm64 = "axm5600_defconfig"
