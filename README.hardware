@@ -20,8 +20,8 @@ This BSP supports the following boards:
 2. Change History
 =================
 
-  - 2022/10 (LINUXPG-1155): WRLinux 10.22 RCPL03, enable Intel Axxia AXM55xx support.
-  - 2022/10 (LINUXPG-1156): WRLinux 10.22 RCPL03, enable Intel Axxia AXM56xx support.
+  - 2023/10 (LINUXPG-1702): Enable Intel Axxia AXM55xx support.
+  - 2023/10 (LINUXPG-1703): Enable Intel Axxia AXM56xx support.
 
 3. BSP Features
 ===============
@@ -110,7 +110,7 @@ different environment it may run into unknown issues.
 	----------------------
 	Processor:		ARMv8 Processor rev 3
 	BootLoader:		U-Boot
-	BootLoader Version: 	u-boot_v2015.10_axxia_1.96
+	BootLoader Version: 	u-boot_v2015.10_axxia_1.99
 	ATF Version:		atf_84091c4_axxia_1.43
 
 5.3 Known Issues
