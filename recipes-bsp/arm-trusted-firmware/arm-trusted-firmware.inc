@@ -37,7 +37,8 @@ AS[unexport] = "1"
 LD[unexport] = "1"
 
 do_configure() {
-	:
+	# Append --no-warn-rwx-segments to LDFLAGS
+	sed -i 's/--gc-sections/& --no-warn-rwx-segments/' ${S}/Makefile
 }
 
 do_compile() {
