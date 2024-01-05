@@ -55,7 +55,7 @@ This BSP supports the following features.
 3.2 Unsupported Features
 ========================
 
-The following features are not supported and validated:
+The following features are not supported and not validated:
 	x PCIe: On-Chip PCIe controller
 	x SRIO: On-Chip SRIO controller
 	x SATA: On-Chip SATA controller
