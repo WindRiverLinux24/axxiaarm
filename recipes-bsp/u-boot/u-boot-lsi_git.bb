@@ -6,25 +6,25 @@ require recipes-bsp/u-boot/u-boot.inc
 LICENSE = "GPL-2.0-or-later"
 LIC_FILES_CHKSUM = "file://COPYING;md5=1707d6db1d42237583f50183a5651ecb"
 
-# This revision corresponds to the tag "lsi_axxia_u-boot_5.8.1.90"
-SRCREV = "1523c5f65c5e9a78658f3de446c6287cc66b7677"
+# This revision corresponds to the tag "axxia_u-boot_5.8.1.96"
+SRCREV = "f884431a69329dde6f5bd2e083ef13b52fee37e4"
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
 COMPATIBLE_MACHINE = "^axxiaarm$"
-SRC_URI = "git://github.com/axxia/axxia_u-boot.git;protocol=https;branch=lsi-v2013.01.01"
+SRC_URI = "git://github.com/axxia/axxia_u-boot.git;protocol=https;branch=5500/axxia-dev"
 
 SRC_URI:append = " file://0001-lsi-axm55xx-fix-the-u-boot-compile-fail.patch \
 		   file://0008-compiler-.h-sync-include-linux-compiler-.h-with-Linu.patch \
 		   file://0009-config.mk-add-Wno-address-of-packed-member-to-CFLAGS.patch \
-		   file://0001-fs-fat-Fix-GCC-12-Compiler-Warning.patch \
+		   file://0001-include-command.h-correct-to-use-enum-command_ret_t-.patch \
 		 "
 
 S = "${WORKDIR}/git"
 B = "${WORKDIR}/build"
 UBOOT_MAKE_TARGET ?= "all"
 
-EXTRA_OEMAKE += "AXXIA_VERSION=lsi_axxia_u-boot_5.8.1.95"
+EXTRA_OEMAKE += "AXXIA_VERSION=axxia_u-boot_5.8.1.96"
 PV = "2013.01.01+git${SRCREV}"
 
 # Some versions of u-boot use .bin and others use .img.  By default use .bin
