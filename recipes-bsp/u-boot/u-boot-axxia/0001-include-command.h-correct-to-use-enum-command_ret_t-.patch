@@ -1,0 +1,42 @@
+From cac5ba945a8de769c84f4d805d4b6934f83f4a7e Mon Sep 17 00:00:00 2001
+From: Liwei Song <liwei.song@windriver.com>
+Date: Tue, 11 Jun 2024 06:40:37 +0000
+Subject: [PATCH] include/command.h: correct to use enum command_ret_t for
+ cmd_process()
+
+The types of declaration cmd_process() are conflict in command.c and
+common.h, correct to use "enum command_ret_t" for the declaration in
+common.h to fix below compile error:
+
+| command.c:515:20: error: conflicting types for 'cmd_process' due to enum/integer mismatch; have 'enum command_ret_t(int,  int,  char * const*, int *)' [-Werror=enum-int-mismatch]
+|   515 | enum command_ret_t cmd_process(int flag, int argc, char * const argv[],
+|       |                    ^~~~~~~~~~~
+| In file included from include/image.h:50,
+|                  from include/common.h:118,
+|                  from command.c:28:
+| include/command.h:144:5: note: previous declaration of 'cmd_process' with type 'int(int,  int,  char * const*, int *)'
+|   144 | int cmd_process(int flag, int argc, char * const argv[],
+
+Upstream-Status: Submitted [https://github.com/axxia/axxia_u-boot/pull/5/commits/c86db02c14c239ff424a94da5545b78841bf2f8d]
+
+Signed-off-by: Liwei Song <liwei.song@windriver.com>
+---
+ include/command.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/command.h b/include/command.h
+index 6c04cd9007a5..c4a8302a5e3b 100644
+--- a/include/command.h
++++ b/include/command.h
+@@ -139,7 +139,7 @@ enum command_ret_t {
+  *			number of ticks the command took to complete.
+  * @return 0 if the command succeeded, 1 if it failed
+  */
+-int cmd_process(int flag, int argc, char * const argv[],
++enum command_ret_t cmd_process(int flag, int argc, char * const argv[],
+ 			       int *repeatable, unsigned long *ticks);
+ 
+ #endif	/* __ASSEMBLY__ */
+-- 
+2.40.0
+
