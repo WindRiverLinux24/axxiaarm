@@ -281,7 +281,7 @@ command for your project:
 5.1.1 kexec
 -----------
 For capture kernel:
-Before boot capture kernel, please add "maxcpus=1" to the boot parameter.
+Before boot capture kernel, please add "nr_cpus=1" to the boot parameter.
 
 5.1.2 kdump
 -----------
@@ -291,7 +291,7 @@ Now kdump in axm55xx can only support memory size less than 4G because that
 than 4G. So need pass "crashkernel=256M@256M mem=4096M" via the command line.
 
 For capture kernel:
-Before boot capture kernel, please add "maxcpus=1" to the boot parameter.
+Before boot capture kernel, please add "nr_cpus=1" to the boot parameter.
 
 6. Axxiaarm64 board Features
 ============================
